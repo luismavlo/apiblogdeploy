@@ -9,8 +9,17 @@ const db = new Sequelize({
   port: process.env.DB_PORT,
   logging: false,
   dialectOptions: {
-    ssl: false, // Deshabilitar SSL/TLS
+    ssl: {
+      require: true, // Requiere conexión SSL/TLS
+      rejectUnauthorized: false, // Ignora los certificados autofirmados, utiliza un certificado CA válido en producción
+    },
   },
 });
+
+// const DB_URI = process.env.DB_URI;
+
+// const db = new Sequelize(DB_URI, {
+//   logging: false,
+// });
 
 module.exports = { db };
